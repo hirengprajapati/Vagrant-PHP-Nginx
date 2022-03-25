@@ -148,7 +148,7 @@ ln -s /etc/php/7.4/mods-available/excel.ini /etc/php/7.4/fpm/conf.d/21-excel.ini
 ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/app.conf
 
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-composer install
+apt install composer
 
 service php7.4-fpm restart
 service nginx restart

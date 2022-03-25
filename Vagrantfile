@@ -6,13 +6,13 @@ Vagrant.configure("2") do |config|
   #config.vm.synced_folder "/www/storage/", "/var/storage/"
 
   config.vm.provider "virtualbox" do |v|
-    v.name = "dd-directdevice-php74"
+    v.name = "hp-react&laravel8-app"
     v.customize ["modifyvm", :id, "--memory", "2048"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  config.vm.network "forwarded_port", guest: 80, host: 8100 # web
-  config.vm.network "forwarded_port", guest: 8025, host: 8125 # mailhog
-  config.vm.network "forwarded_port", guest: 9001, host: 9101 # supervisor
+  config.vm.network "forwarded_port", guest: 80, host: 8000 # web
+  config.vm.network "forwarded_port", guest: 8025, host: 8025 # mailhog
+  config.vm.network "forwarded_port", guest: 9001, host: 9001 # supervisor
 end
