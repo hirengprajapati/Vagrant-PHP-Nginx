@@ -12,7 +12,9 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
+  config.vm.network "private_network", ip: "192.168.50.50"
   config.vm.network "forwarded_port", guest: 80, host: 8000 # web
+  config.vm.network "forwarded_port", guest: 8001, host: 8001 # web node proxy
   config.vm.network "forwarded_port", guest: 8025, host: 8025 # mailhog
   config.vm.network "forwarded_port", guest: 9001, host: 9001 # supervisor
 end

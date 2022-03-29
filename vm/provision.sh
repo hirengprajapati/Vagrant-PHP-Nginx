@@ -60,6 +60,13 @@ apt install -y \
   libcommons-lang3-java \
   libbcprov-java
 
+# node js install
+apt-get update
+curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+sudo apt-get install -y build-essential
+
 curl -Lo /vagrant/pdftk-java_0.0.0+20180723.1-1_all.deb http://launchpadlibrarian.net/383018194/pdftk-java_0.0.0+20180723.1-1_all.deb
 dpkg -i /vagrant/pdftk-java_0.0.0+20180723.1-1_all.deb
 rm -f /vagrant/pdftk-java_0.0.0+20180723.1-1_all.deb
@@ -134,7 +141,8 @@ rm -f /etc/supervisor/supervisord.conf
 
 cp /vagrant/vm/nginx.conf /etc/nginx/nginx.conf
 cp /vagrant/vm/nginx-common.conf /etc/nginx/common.conf
-cp /vagrant/vm/nginx-app.conf /etc/nginx/sites-available/app.conf
+cp /vagrant/vm/nginx-app.conf /etc/nginx/sites-available/nginx-app.conf
+cp /vagrant/vm/nginx-node-app.conf /etc/nginx/sites-available/nginx-node-app.conf
 cp /vagrant/vm/php.ini /etc/php/7.4/php.ini
 ln -s /etc/php/7.4/php.ini /etc/php/7.4/cli/php.ini
 ln -s /etc/php/7.4/php.ini /etc/php/7.4/fpm/php.ini
@@ -145,7 +153,9 @@ cp /vagrant/vm/supervisord.conf /etc/supervisor/supervisord.conf
 
 ln -s /etc/php/7.4/mods-available/excel.ini /etc/php/7.4/cli/conf.d/21-excel.ini
 ln -s /etc/php/7.4/mods-available/excel.ini /etc/php/7.4/fpm/conf.d/21-excel.ini
-ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/app.conf
+ln -s /etc/nginx/sites-available/nginx-app.conf /etc/nginx/sites-enabled/nginx-app.conf
+ln -s /etc/nginx/sites-available/nginx-node-app.conf /etc/nginx/sites-enabled/nginx-node-app.conf
+
 
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 apt install composer
@@ -153,5 +163,8 @@ apt install composer
 service php7.4-fpm restart
 service nginx restart
 service supervisor restart
+node /vagrant/nodeapp/main.js
 
 echo "Finished!"
+
+
